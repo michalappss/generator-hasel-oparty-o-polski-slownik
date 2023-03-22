@@ -4,10 +4,10 @@ from secrets import choice
 from unidecode import unidecode
 
 class Password:
-    f = open('slowa.txt', encoding='utf-8')
+    f = open(r'C:\Users\piaszczykm\Downloads\passwords\slowa.txt', encoding='utf-8')
     data = f.readlines()
     dict = ast.literal_eval(data[0])
-
+    
     def __init__(self, lenght: int, specials: int):
         self.lenght = lenght
         self.specials = specials
@@ -28,10 +28,6 @@ class Password:
         characters = ''.join(choice(characters_list) for i in range(specials))
         password = word+characters
 
-        if self.has_digit(password) == False:
-            s_pos = choice(range(len(password)))
-            password = password[:s_pos] + \
-                str(choice(string.digits)) + password[s_pos:]
         while len(password) != lenght:
             if len(password) < lenght:
                 word = choice(self.dict)
@@ -46,11 +42,15 @@ class Password:
                     password[s_pos], password[s_pos].upper())
             except:
                 pass
+        if self.has_digit(password) == False:
+            s_pos = choice(range(len(password)))
+            password = password.replace(password[s_pos], str(choice(string.digits)))
         password = unidecode(password)
         return password
 
 
-passwords = [Password(20, 3) for i in range(11)]
-for p in passwords:
+lista_hasel = [Password(15, 3) for i in range(30)]
+for p in lista_hasel:
     print(p)
 
+# print(lista_hasel)

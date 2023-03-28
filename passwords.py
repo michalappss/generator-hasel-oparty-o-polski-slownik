@@ -1,12 +1,11 @@
 import string
-import ast
 from secrets import choice
 from unidecode import unidecode
+import pickle
 
 class Password:
-    f = open(r'C:\Users\piaszczykm\Downloads\passwords\slowa.txt', encoding='utf-8')
-    data = f.readlines()
-    dict = ast.literal_eval(data[0])
+    with open('slowa.pkl', 'rb') as f:
+        dict = pickle.load(f)
     
     def __init__(self, lenght: int, specials: int):
         self.lenght = lenght
@@ -49,8 +48,6 @@ class Password:
         return password
 
 
-lista_hasel = [Password(15, 3) for i in range(30)]
+lista_hasel = [Password(9, 3) for i in range(30)]
 for p in lista_hasel:
     print(p)
-
-# print(lista_hasel)
